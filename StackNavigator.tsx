@@ -3,15 +3,22 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import HomeScreen from "./screens/Home";
 import ChatScreen from "./screens/Chat";
 import LoginScreen from "./screens/Login";
+import useAuth from "./hooks/useAuth";
 
 const Stack = createNativeStackNavigator();
 
 const StackNavigator = () => {
+  const context = useAuth();
   return (
     <Stack.Navigator>
-      <Stack.Screen name="Home" component={HomeScreen} />
-      <Stack.Screen name="Chat" component={ChatScreen} />
-      <Stack.Screen name="Login" component={LoginScreen} />
+      {context?.user ? (
+        <>
+          <Stack.Screen name="Home" component={HomeScreen} />
+          <Stack.Screen name="Chat" component={ChatScreen} />
+        </>
+      ) : (
+        <Stack.Screen name="Login" component={LoginScreen} />
+      )}
     </Stack.Navigator>
   );
 };
