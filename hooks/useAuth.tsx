@@ -1,18 +1,20 @@
-import React, { createContext, useContext } from "react";
+import React, { createContext, useContext, useState } from "react";
 
 interface Props {
   children: React.ReactNode;
 }
 
 export interface AuthContextProps {
-  user: string;
+  data: string | null;
+  updateUser: (e: string | null) => void;
 }
 
-const AuthContext = createContext<AuthContextProps | null>(null);
+export const AuthContext = createContext<AuthContextProps | null>(null);
 
 export const AuthProvider = ({ children }: Props) => {
+  const [user, setUser] = useState<string | null>(null);
   return (
-    <AuthContext.Provider value={{ user: "John Doe" }}>
+    <AuthContext.Provider value={{ data: user, updateUser: setUser }}>
       {children}
     </AuthContext.Provider>
   );

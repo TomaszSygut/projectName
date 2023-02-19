@@ -1,18 +1,17 @@
-import { StyleSheet, Text, View } from "react-native";
+import { useNavigation } from "@react-navigation/core";
+import { IntroScreenNavigationProp } from "../StackNavigator";
+import ButtonComponent from "../components/Button";
+import LayoutComponent from "../components/Layout";
 
 export default function HomeScreen() {
+  const navigation = useNavigation<IntroScreenNavigationProp>();
+
   return (
-    <View style={styles.container}>
-      <Text>Home</Text>
-    </View>
+    <LayoutComponent>
+      <ButtonComponent
+        onPress={() => navigation.navigate("Chat", {})}
+        title="Go to chat"
+      />
+    </LayoutComponent>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});
